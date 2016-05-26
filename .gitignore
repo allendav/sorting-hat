@@ -1,3 +1,6 @@
+# Built files
+assets/js/bundle.js
+
 # Logs
 logs
 *.log
