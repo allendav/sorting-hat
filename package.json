@@ -25,6 +25,7 @@
 		"babel-register": "^6.9.0",
 		"dateformat": "^1.0.12",
 		"flux": "^2.1.1",
+		"github": "^0.2.4",
 		"hapi": "^13.4.1",
 		"hapi-react-views": "^8.0.0",
 		"inert": "^4.0.0",

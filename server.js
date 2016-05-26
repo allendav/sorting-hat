@@ -1,8 +1,10 @@
 require('babel-register')({
 	presets: ['es2015', 'react'],
 });
+
 var Hapi = require('hapi');
 var dateFormat = require('dateformat');
+var api = require('./api');
 var format = "dd mmm HH:MM:ss";
 
 // Basic Hapi.js connection stuff
@@ -31,6 +33,15 @@ server.register([{
 		},
 		relativeTo: __dirname,
 		path: 'views'
+	});
+
+	// Add a route for github blob retrieval
+	server.route({
+		method: 'GET',
+		path: '/api/issues',
+		handler: function( request, reply ) {
+			api.issues( request, reply );
+		}
 	});
 
 	// Add a route to serve static assets (CSS, JS, IMG)
