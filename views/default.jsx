@@ -1,6 +1,6 @@
-var React = require( 'react' );
+import React from 'react';
 
-var defaultview = React.createClass( {
+const defaultview = React.createClass( {
 
 	render: function() {
 		return (
@@ -13,7 +13,7 @@ var defaultview = React.createClass( {
 					<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'></link>
 				</head>
 				<body style={{fontFamily: ['Varela Round', 'sans-serif']}}>
-					<div id="app"></div>
+					<div id="root"></div>
 					<script src="js/bundle.js"></script>
 				</body>
 			</html>

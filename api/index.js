@@ -1,4 +1,4 @@
-var githubapi = require( 'github' );
+import githubapi from 'github';
 
 module.exports = {
 	issues: function( request, reply ) {

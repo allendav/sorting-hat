@@ -1,6 +1,6 @@
 // Webpack config file
 module.exports = {
-	entry: './assets/js/app/index.jsx',
+	entry: './assets/js/index.jsx',
 	output: {
 		path: __dirname + '/assets/js',
 		filename: 'bundle.js'
@@ -8,7 +8,7 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				test: /\.jsx$/,
+				test: /\.jsx?$/,
 				loader: 'babel-loader'
 			}
 		]
