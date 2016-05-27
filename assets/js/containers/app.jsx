@@ -19,8 +19,14 @@ class App extends Component {
 		const { issues, isFetching } = this.props;
 		const assignees = this.extractAssignees( issues );
 
+		const style = {
+			display: 'flex',
+			justifyContent: 'space-around',
+			padding: 2
+		};
+
 		return (
-			<div>
+			<div style={ style }>
 				{
 					assignees.map( assignee => {
 						const assigneeIssues = issues.filter( issue => {

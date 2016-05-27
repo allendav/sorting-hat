@@ -5,10 +5,17 @@ export default class Assignee extends Component {
 	render() {
 		const { assignee, issues } = this.props;
 
+		const style = {
+			backgroundColor: '#fafafa',
+			flex: 1,
+			margin: 2,
+			padding: 5
+		};
+
 		return (
-			<div>
+			<div style={ style }>
 				<p>
-					{ assignee }
+					{ assignee } ( { issues.length } )
 				</p>
 				<IssueList issues={ issues } />
 			</div>

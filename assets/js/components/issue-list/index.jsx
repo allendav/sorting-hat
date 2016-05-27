@@ -7,14 +7,11 @@ export default class IssueList extends Component {
 
 		return (
 			<div>
-				<ul>
-					{
-						issues.map( issue => (
-							<Issue key={ issue.id } issue={ issue } />
-						) )
-					}
-				</ul>
-
+				{
+					issues.map( issue => (
+						<Issue key={ issue.id } issue={ issue } />
+					) )
+				}
 			</div>
 		);
 	}
