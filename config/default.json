@@ -1,0 +1,11 @@
+{
+	"github" : {
+		"token": "",
+		"repositories": [
+			{
+				"user": "automattic",
+				"repo": "woocommerce-connect-client"
+			}
+		]
+	}
+}
