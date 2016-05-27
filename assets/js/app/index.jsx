@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-// TODO import other components and render all the things
+import Issues from '../containers/issues';
 
 ReactDOM.render(
-	<p>
-		Howdy
-	</p>
+	<Issues />
 	, document.getElementById( 'app' )
 );
