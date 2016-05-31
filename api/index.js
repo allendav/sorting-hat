@@ -39,7 +39,12 @@ module.exports = {
 
 		}, function( error, results ) {
 			const merged = [].concat.apply( [], results );
-			reply( merged );
+			// pull requests may be included in repoIssues, so
+			// filter out pull requests
+			const filtered = merged.filter( function( result ) {
+				return ( "undefined" === typeof result.pull_request );
+			} );
+			reply( filtered );
 		} );
 
 	}
