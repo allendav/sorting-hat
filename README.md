@@ -1,6 +1,6 @@
 # sorting-hat
 
-Sorting hat makes it easier to manage issue assignments across multiple repositories.
+Sorting Hat makes it easier to manage issue assignments across multiple repositories.
 
 Sorting Hat displays issues by assignee for the automattic woocommerce-connect-client repository
 by default. To add other repository, copy `config/default.json` to `config/local.json` and edit
