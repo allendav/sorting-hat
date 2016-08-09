@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import IssueList from '../issue-list';
 
 export default class Assignee extends Component {
 	render() {
-		const { assignee, issues } = this.props;
+		const { assignee, issueCount } = this.props;
 
 		const style = {
 			backgroundColor: '#fafafa',
@@ -13,11 +12,8 @@ export default class Assignee extends Component {
 		};
 
 		return (
-			<div style={ style }>
-				<p>
-					{ assignee } ( { issues.length } )
-				</p>
-				<IssueList issues={ issues } />
+			<div className='assignee' style={ style }>
+				{ assignee } <br/>( { issueCount } )
 			</div>
 		);
 	}
@@ -25,5 +21,5 @@ export default class Assignee extends Component {
 
 Assignee.propTypes = {
 	assignee: PropTypes.string.isRequired,
-	issues: PropTypes.array.isRequired
+	issueCount: PropTypes.number.isRequired
 }

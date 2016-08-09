@@ -8,7 +8,7 @@ const store = configureStore();
 export default class Root extends Component {
 	render() {
 		return (
-			<Provider store={ store } >
+			<Provider store={ store }>
 				<App />
 			</Provider>
 		);
