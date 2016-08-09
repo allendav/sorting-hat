@@ -31,6 +31,8 @@
     "hapi": "^13.4.1",
     "hapi-react-views": "^8.0.0",
     "inert": "^4.0.0",
+    "lodash.filter": "^4.5.1",
+    "lodash.sortby": "^4.6.1",
     "lodash.uniq": "^4.3.0",
     "object-assign": "^4.1.0",
     "react": "^15.1.0",

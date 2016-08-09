@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { fetchIssues } from '../actions';
+import filter from 'lodash.filter';
+import sortBy from 'lodash.sortby';
 import uniq from 'lodash.uniq';
 import Assignee from '../components/assignee';
+import IssueList from '../components/issue-list';
 
 class App extends Component {
 	componentDidMount() {
@@ -15,32 +18,134 @@ class App extends Component {
 		return uniq( assignees ).sort();
 	};
 
-	render() {
-		const { issues, isFetching } = this.props;
-		const assignees = this.extractAssignees( issues );
+	extractMilestoneDates( issues ) {
+		const issuesWithMilestones = issues.filter( issue => ( null !== issue.milestone ) );
+		const allMilestoneDates = issuesWithMilestones.map( issue => issue.milestone.due_on );
 
-		const style = {
+		return uniq( allMilestoneDates ).sort();
+	}
+
+	renderHeader( assignees, issues ) {
+		const headerStyle = {
+			backgroundColor: '#fff',
 			display: 'flex',
 			justifyContent: 'space-around',
-			padding: 2
+			padding: 2,
+			width: '100%',
+		};
+
+		const rowStyle = {
+			borderColor: '#ff0000',
+			borderSize: 1,
+			borderStyle: 'solid',
+			display: 'flex',
+			justifyContent: 'space-around',
+			padding: 2,
+		};
+
+		const cellStyle = {
+			backgroundColor: '#fafafa',
+			flex: 1,
+			margin: 2,
+			padding: 5,
 		};
 
 		return (
-			<div style={ style }>
+			<div style={ headerStyle }>
+				<div style={ cellStyle }> Sorting Hat </div>
 				{
 					assignees.map( assignee => {
 						const assigneeIssues = issues.filter( issue => {
 							return issue.assignee ? ( issue.assignee.login === assignee ) : ( assignee === 'unassigned' );
 						} );
 						return (
-							<Assignee
-								key={ assignee }
-								assignee={ assignee }
-								issues={ assigneeIssues }
-							/>
+							<div style={ cellStyle } >
+								<Assignee
+									assignee={ assignee }
+									key={ assignee }
+									issueCount={ assigneeIssues.length }
+								/>
+							</div>
 						);
 					} )
 				}
+			</div>
+		);
+	}
+
+	renderMilestoneRows( assignees, issues ) {
+		const milestoneDates = this.extractMilestoneDates( issues );
+
+		const contentStyle = {
+			flex: 1,
+			height: 600, // this isn't right - TODO fix correctly
+			overflowY: 'auto',
+			width: '100%',
+		};
+
+		const rowStyle = {
+			display: 'flex',
+			justifyContent: 'space-around',
+			padding: 2,
+		};
+
+		const cellStyle = {
+			backgroundColor: '#fafafa',
+			flex: 1,
+			margin: 2,
+			padding: 5,
+		};
+
+		return (
+			<div style={ contentStyle } >
+				{
+					milestoneDates.map( milestoneDate => {
+						const issuesForMilestone = issues.filter( issue => {
+							return issue.milestone ? ( issue.milestone.due_on === milestoneDate ) : false;
+						} );
+						const milestoneDay = milestoneDate.substring( 0, 10 );
+						const milestoneIssueCount = issuesForMilestone.length;
+						return (
+							<div style={ rowStyle }>
+								<div style={ cellStyle }>
+									{ milestoneDay } <br/> ( { milestoneIssueCount } )
+								</div>
+								{
+									assignees.map( assignee => {
+										const assigneeIssuesForMilestone = issuesForMilestone.filter( issue => {
+											return issue.assignee ? ( issue.assignee.login === assignee ) : ( assignee === 'unassigned' );
+										} );
+										return (
+											<div style={ cellStyle }>
+												<IssueList
+													key={ assignee }
+													issues={ assigneeIssuesForMilestone }
+												/>
+											</div>
+										);
+									} )
+								}
+							</div>
+						);
+					} )
+				}
+			</div>
+		);
+	}
+
+	render() {
+		const { issues, isFetching } = this.props;
+		const assignees = this.extractAssignees( issues );
+
+		const appStyle = {
+			display: 'flex',
+			flexDirection: 'column',
+		};
+
+		return (
+			<div style={ appStyle }>
+				{ this.renderHeader( assignees, issues ) }
+				{ this.renderMilestoneRows( assignees, issues ) }
 			</div>
 		);
 	};
