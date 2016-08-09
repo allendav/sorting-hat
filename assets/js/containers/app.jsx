@@ -5,7 +5,7 @@ import filter from 'lodash.filter';
 import sortBy from 'lodash.sortby';
 import uniq from 'lodash.uniq';
 import Assignee from '../components/assignee';
-import IssueList from '../components/issue-list';
+import Milestone from '../components/milestone';
 
 class App extends Component {
 	componentDidMount() {
@@ -59,10 +59,9 @@ class App extends Component {
 							return issue.assignee ? ( issue.assignee.login === assignee ) : ( assignee === 'unassigned' );
 						} );
 						return (
-							<div style={ cellStyle } >
+							<div key={ assignee } style={ cellStyle } >
 								<Assignee
 									assignee={ assignee }
-									key={ assignee }
 									issueCount={ assigneeIssues.length }
 								/>
 							</div>
@@ -83,18 +82,9 @@ class App extends Component {
 			width: '100%',
 		};
 
-		const rowStyle = {
-			display: 'flex',
-			justifyContent: 'space-around',
-			padding: 2,
-		};
-
-		const cellStyle = {
-			backgroundColor: '#fafafa',
-			flex: 1,
-			margin: 2,
-			padding: 5,
-		};
+		const issuesWithNoMilestone = issues.filter( issue => {
+			return issue.milestone ? false : true;
+		} );
 
 		return (
 			<div style={ contentStyle } >
@@ -103,32 +93,23 @@ class App extends Component {
 						const issuesForMilestone = issues.filter( issue => {
 							return issue.milestone ? ( issue.milestone.due_on === milestoneDate ) : false;
 						} );
-						const milestoneDay = milestoneDate.substring( 0, 10 );
-						const milestoneIssueCount = issuesForMilestone.length;
+
 						return (
-							<div style={ rowStyle }>
-								<div style={ cellStyle }>
-									{ milestoneDay } <br/> ( { milestoneIssueCount } )
-								</div>
-								{
-									assignees.map( assignee => {
-										const assigneeIssuesForMilestone = issuesForMilestone.filter( issue => {
-											return issue.assignee ? ( issue.assignee.login === assignee ) : ( assignee === 'unassigned' );
-										} );
-										return (
-											<div style={ cellStyle }>
-												<IssueList
-													key={ assignee }
-													issues={ assigneeIssuesForMilestone }
-												/>
-											</div>
-										);
-									} )
-								}
-							</div>
+							<Milestone
+								assignees={ assignees }
+								issues={ issuesForMilestone }
+								key={ milestoneDate }
+								milestoneDate={ milestoneDate }
+							/>
 						);
 					} )
 				}
+
+				<Milestone
+					assignees={ assignees }
+					issues={ issuesWithNoMilestone }
+					milestoneDate={ 'Unassigned' }
+				/>
 			</div>
 		);
 	}
