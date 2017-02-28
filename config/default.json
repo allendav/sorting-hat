@@ -4,7 +4,7 @@
 		"repositories": [
 			{
 				"user": "automattic",
-				"repo": "woocommerce-connect-client"
+				"repo": "woocommerce-services"
 			}
 		]
 	}
