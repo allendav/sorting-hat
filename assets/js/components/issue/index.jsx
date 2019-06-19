@@ -43,7 +43,8 @@ export default class Issue extends Component {
 			boxShadow: '2px 2px 2px #ddd',
 			fontSize: 11,
 			marginBottom: 5,
-			padding: 5
+			padding: 5,
+			wordBreak: "break-all"
 		};
 
 		return (

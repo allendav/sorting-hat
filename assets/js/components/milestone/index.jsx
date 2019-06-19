@@ -22,7 +22,7 @@ export default class Milestone extends Component {
 			padding: 5,
 		};
 
-		const milestoneDay = milestoneDate.substring( 0, 10 );
+		const milestoneDay = milestoneDate ? milestoneDate.substring( 0, 10 ) : "No Date";
 		const issueCount = issues.length;
 
 		return (
@@ -53,5 +53,5 @@ export default class Milestone extends Component {
 Milestone.propTypes = {
 	assignees: PropTypes.array.isRequired,
 	issues: PropTypes.array.isRequired,
-	milestoneDate: PropTypes.string.isRequired,
+	milestoneDate: PropTypes.string,
 }
