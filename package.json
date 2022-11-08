@@ -45,8 +45,8 @@
   },
   "devDependencies": {
     "babel-core": "^6.9.0",
-    "babel-loader": "^6.2.4",
+    "babel-loader": "^9.1.0",
     "nodemon": "^1.9.2",
-    "webpack": "^1.13.1"
+    "webpack": "^5.74.0"
   }
 }
